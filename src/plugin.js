@@ -136,14 +136,11 @@ class AutoDLLPlugin {
       };
 
       compiler.hooks.compilation.tap('AutoDllPlugin', compilation => {
-        if (!compilation.hooks.htmlWebpackPluginBeforeHtmlGeneration) {
+        if (!compilation.hooks.beforeAssetTagGeneration) {
           return;
         }
 
-        compilation.hooks.htmlWebpackPluginBeforeHtmlGeneration.tapAsync(
-          'AutoDllPlugin',
-          doCompilation
-        );
+        compilation.hooks.beforeAssetTagGeneration.tapAsync('AutoDllPlugin', doCompilation);
       });
     }
   }
